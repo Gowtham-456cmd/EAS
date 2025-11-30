@@ -1,5 +1,10 @@
 # Employee Attendance System
 
+**Developer:** Baswani Gowtham  
+**Education:** 4th Year B.Tech, Andhra University College of Engineering  
+**Contact:** 9392789266
+
+
 A full-stack web application for managing employee attendance with role-based access control.
 
 ## Features

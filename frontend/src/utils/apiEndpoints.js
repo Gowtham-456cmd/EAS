@@ -3,7 +3,7 @@
  * All API endpoints are defined here for easy maintenance
  */
 
-const API_BASE = '/api';
+const API_BASE = '';
 
 // Auth Endpoints
 export const AUTH_ENDPOINTS = {

@@ -27,6 +27,31 @@ const ManagerDashboard = () => {
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   };
 
+  const tableWrapperStyle = {
+    width: '100%',
+    overflowX: 'auto',
+    marginTop: '10px',
+  };
+
+  const tableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    fontSize: '14px',
+  };
+
+  const thStyle = {
+    padding: '8px 10px',
+    textAlign: 'left',
+    backgroundColor: '#f5f5f5',
+    borderBottom: '1px solid #ddd',
+    fontWeight: 600,
+  };
+
+  const tdStyle = {
+    padding: '8px 10px',
+    borderBottom: '1px solid #eee',
+  };
+
   return (
     <Layout role="manager">
       <h1>Manager Dashboard</h1>
@@ -34,62 +59,66 @@ const ManagerDashboard = () => {
       {dashboardData && (
         <>
           <div style={cardStyle}>
-            <h3>Overview</h3>
-            <p>Total Employees: {dashboardData.totalEmployees}</p>
-            <p>Present Today: {dashboardData.todayStats?.present}</p>
-            <p>Absent Today: {dashboardData.todayStats?.absent}</p>
-            <p>Late Today: {dashboardData.todayStats?.late}</p>
+            <h3 style={{ marginTop: 0, marginBottom: '12px' }}>Overview</h3>
+            <p style={{ margin: '4px 0' }}>Total Employees: <strong>{dashboardData.totalEmployees}</strong></p>
+            <p style={{ margin: '4px 0' }}>Present Today: <strong>{dashboardData.todayStats?.present}</strong></p>
+            <p style={{ margin: '4px 0' }}>Absent Today: <strong>{dashboardData.todayStats?.absent}</strong></p>
+            <p style={{ margin: '4px 0' }}>Late Today: <strong>{dashboardData.todayStats?.late}</strong></p>
           </div>
 
           <div style={cardStyle}>
-            <h3>Department-wise Attendance</h3>
+            <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Department-wise Attendance</h3>
             {dashboardData.departmentWise?.length > 0 ? (
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid #ddd' }}>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Department</th>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Total</th>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Present</th>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Absent</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dashboardData.departmentWise.map((dept, index) => (
-                    <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '10px' }}>{dept.department}</td>
-                      <td style={{ padding: '10px' }}>{dept.total}</td>
-                      <td style={{ padding: '10px' }}>{dept.present}</td>
-                      <td style={{ padding: '10px' }}>{dept.absent}</td>
+              <div style={tableWrapperStyle}>
+                <table style={tableStyle}>
+                  <thead>
+                    <tr>
+                      <th style={thStyle}>Department</th>
+                      <th style={thStyle}>Total</th>
+                      <th style={thStyle}>Present</th>
+                      <th style={thStyle}>Absent</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {dashboardData.departmentWise.map((dept, index) => (
+                      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa' }}>
+                        <td style={tdStyle}>{dept.department}</td>
+                        <td style={tdStyle}>{dept.total}</td>
+                        <td style={tdStyle}>{dept.present}</td>
+                        <td style={tdStyle}>{dept.absent}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p>No department data available</p>
             )}
           </div>
 
           <div style={cardStyle}>
-            <h3>Absent Employees Today</h3>
+            <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Absent Employees Today</h3>
             {dashboardData.absentEmployees?.length > 0 ? (
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid #ddd' }}>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Name</th>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Employee ID</th>
-                    <th style={{ padding: '10px', textAlign: 'left' }}>Department</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dashboardData.absentEmployees.map((emp, index) => (
-                    <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '10px' }}>{emp.name}</td>
-                      <td style={{ padding: '10px' }}>{emp.employeeId}</td>
-                      <td style={{ padding: '10px' }}>{emp.department}</td>
+              <div style={tableWrapperStyle}>
+                <table style={tableStyle}>
+                  <thead>
+                    <tr>
+                      <th style={thStyle}>Name</th>
+                      <th style={thStyle}>Employee ID</th>
+                      <th style={thStyle}>Department</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {dashboardData.absentEmployees.map((emp, index) => (
+                      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa' }}>
+                        <td style={tdStyle}>{emp.name}</td>
+                        <td style={tdStyle}>{emp.employeeId}</td>
+                        <td style={tdStyle}>{emp.department}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p>All employees are present today</p>
             )}
